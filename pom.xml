@@ -7,6 +7,23 @@
   <artifactId>spring-petclinic</artifactId>
   <version>2.4.5</version>
 
+
+  <distributionManagement>
+    <repository>
+      <id>internal.repo</id>
+      <name>git repo</name>
+      <url>https://github.com/rozdestvenskiy/spring-petclinic</url>
+    </repository>
+  </distributionManagement>
+
+  <scm>
+    <connection>scm:git:https://github.com/rozdestvenskiy/spring-petclinic</connection>
+    <developerConnection>scm:git:https://github.com/rozdestvenskiy/spring-petclinic</developerConnection>
+    <url>https://github.com/rozdestvenskiy/spring-petclinic</url>
+  </scm>
+
+
+
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
