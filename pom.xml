@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.samples</groupId>
   <artifactId>spring-petclinic</artifactId>
-  <version>newVers</version>
+  <version>1.1-SNAPSHOT</version>
 
 
   <distributionManagement>
@@ -18,7 +18,7 @@
     <connection>scm:git:https://github.com/rozdestvenskiy/spring-petclinic</connection>
     <developerConnection>scm:git:https://github.com/rozdestvenskiy/spring-petclinic</developerConnection>
     <url>https://github.com/rozdestvenskiy/spring-petclinic</url>
-    <tag>newVers</tag>
+    <tag>HEAD</tag>
   </scm>
 
 
