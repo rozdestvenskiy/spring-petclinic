@@ -3,7 +3,7 @@ pipeline {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "192.168.43.201:8081"
-        NEXUS_REPOSITORY = "petclinic"
+        NEXUS_REPOSITORY = "maven-snapshots"
         NEXUS_CREDENTIAL_ID = "nexus"
     }
     agent {
