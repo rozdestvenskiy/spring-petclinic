@@ -18,8 +18,7 @@ pipeline {
     post { 
         always {
             script {
-                sh '''echo "nohup java -jar latest-spring-petclinic.jar 2> nohup.err < /dev/null &" > run.sh'''
-                sh "run.sh"
+                sh "java -jar latest-spring-petclinic.jar"
             }
         }
     }
