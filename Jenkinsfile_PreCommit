@@ -1,0 +1,25 @@
+pipeline {
+    agent {
+        label "slave"
+    }
+    tools {
+        maven "Maven"
+    }
+
+    stages {
+        stage("Clone code from GitHub") {
+            steps {
+                git branch: 'main', url: 'https://github.com/timurbabs/spring-petclinic.git'
+            }
+        }
+        stage("Maven Build") {
+            steps {
+                script {
+                    sh "mvn clean validate"
+                    sh "mvn clean compile"
+                    sh "mvn clean test"
+                }
+            }
+        }
+    }
+}
