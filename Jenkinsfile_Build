@@ -7,7 +7,7 @@ pipeline {
         NEXUS_CREDENTIAL_ID = "nexus"
     }
     agent {
-        label "slave-1"
+        label "slave"
     }
     tools {
         maven "Maven"
