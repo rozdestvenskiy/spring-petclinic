@@ -8,7 +8,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'PASSWORD', usernameVariable: 'ADMIN')]) {
                     script {
-                        sh('curl -L -X GET --compressed "http://192.168.43.201:8081/service/rest/v1/search/assets/download?sort=version&repository=maven-petclinic-snapshots&maven.groupId=org.springframework.samples&maven.artifactId=spring-petclinic&maven.baseVersion=2.4.5&maven.extension=jar" -H "accept: application/json" -o latest-spring-petclinic.jar')
+                        sh('curl -L -X GET --compressed "https://192.168.43.201:8081/service/rest/v1/search/assets/download?sort=version&repository=maven-petclinic-snapshots&maven.groupId=org.springframework.samples&maven.artifactId=spring-petclinic&maven.baseVersion=2.4.5&maven.extension=jar" -H "accept: application/json" -o latest-spring-petclinic.jar')
                     }
                 }
             }
