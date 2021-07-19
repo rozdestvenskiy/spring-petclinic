@@ -7,11 +7,11 @@
 
 
   <distributionManagement>
-    <repository>
-      <id>internal.repo</id>
-      <name>git repo</name>
-      <url>https://github.com/rozdestvenskiy/spring-petclinic</url>
-    </repository>
+    <snapshotRepository>
+      <id>nexus-snapshots</id>
+      <url>http://localhost:8081/repository/mvn-ss/</url>
+
+   </snapshotRepository>
   </distributionManagement>
 
   <scm>
@@ -144,6 +144,31 @@
   <build>
     <plugins>
       <plugin>
+         <groupId>org.sonatype.plugins</groupId>
+         <artifactId>nexus-staging-maven-plugin</artifactId>
+         <version>1.5.1</version>
+         <executions>
+            <execution>
+               <id>default-deploy</id>
+               <phase>deploy</phase>
+               <goals>
+                  <goal>deploy</goal>
+               </goals>
+            </execution>
+         </executions>
+         <configuration>
+            <serverId>nexus</serverId>
+            <nexusUrl>https://localhost:8081/nexus/</nexusUrl>
+            <skipStaging>true</skipStaging>
+         </configuration>
+      </plugin>
+
+
+      <plugin>
+
+
+
+
         <groupId>io.spring.javaformat</groupId>
         <artifactId>spring-javaformat-maven-plugin</artifactId>
         <version>${spring-format.version}</version>
@@ -342,6 +367,16 @@
         <enabled>false</enabled>
       </snapshots>
     </pluginRepository>
+
+    <pluginRepository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <id>bintray-cy6ergn0m-maven</id>
+        <name>bintray-plugins</name>
+        <url>https://dl.bintray.com/cy6ergn0m/maven</url>
+    </pluginRepository>
+
   </pluginRepositories>
 
   <profiles>
@@ -407,6 +442,27 @@
                 </lifecycleMappingMetadata>
               </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>cy.github</groupId>
+                <artifactId>github-release-plugin</artifactId>
+                <version>${plugin.version}</version>
+
+                <configuration>
+                    <tagName>${project.artifactId}-${project.version}</tagName>
+                    <preRelease>true</preRelease>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>gh-upload</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
           </plugins>
         </pluginManagement>
       </build>
