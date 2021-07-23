@@ -9,9 +9,6 @@ pipeline {
     agent {
         label "slave"
     }
-    tools {
-        maven "Maven"
-    }
 
     stages {
         stage("Clone code from GitHub") {
