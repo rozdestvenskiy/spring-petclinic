@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
@@ -6,7 +7,6 @@ pipeline {
         NEXUS_REPOSITORY = "maven-petclinic-snapshots"
         NEXUS_CREDENTIAL_ID = "nexus"
     }
-
     stages {
         stage("Clone code from GitHub") {
             steps {
