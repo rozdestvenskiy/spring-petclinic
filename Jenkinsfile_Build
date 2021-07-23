@@ -6,9 +6,6 @@ pipeline {
         NEXUS_REPOSITORY = "maven-petclinic-snapshots"
         NEXUS_CREDENTIAL_ID = "nexus"
     }
-    agent {
-        label "slave"
-    }
 
     stages {
         stage("Clone code from GitHub") {
