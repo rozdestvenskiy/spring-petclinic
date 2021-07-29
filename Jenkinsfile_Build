@@ -1,16 +1,19 @@
 pipeline {
-    agent any
+    agent slave-1
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "192.168.43.201:8081"
-        NEXUS_REPOSITORY = "maven-petclinic-snapshots"
+        NEXUS_URL = "3.144.25.143:8081"
+        NEXUS_REPOSITORY = "maven-petclinic-snapshot"
+        NEXUS_URL_CONTAINERS = "3.144.25.143:8085"
         NEXUS_CREDENTIAL_ID = "nexus"
+        DOCKER_IMAGE_NAME = "petclinic-docker"
+        DOCKER_IMAGE = ""
     }
     stages {
         stage("Clone code from GitHub") {
             steps {
-                git branch: 'main', url: 'https://github.com/timurbabs/spring-petclinic.git'
+                git branch: 'main', url: 'https://github.com/rozdestvenskiy/spring-petclinic.git'
             }
         }
         stage("Maven Build") {
@@ -51,6 +54,23 @@ pipeline {
                         );
                     } else {
                         error "*** File: ${artifactPath}, could not be found";
+                    }
+                }
+            }
+        }
+        stage("Create Docker Image") {
+            steps {
+                script {
+                    DOCKER_IMAGE = docker.build(DOCKER_IMAGE_NAME)
+                }
+            }
+        }
+        stage("Upload Docker Image to Nexus") {
+            steps {
+                script {
+                    
+                    docker.withRegistry( 'http://'+NEXUS_URL_CONTAINERS, NEXUS_CREDENTIAL_ID ) {
+                        DOCKER_IMAGE.push('latest')
                     }
                 }
             }
