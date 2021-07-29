@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label slave-1
-    }
+    agent any
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
