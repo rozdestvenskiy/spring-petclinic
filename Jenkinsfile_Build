@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage("Clone code from GitHub") {
             steps {
-                git branch: 'main', url: 'https://github.com/rozdestvenskiy/spring-petclinic.git'
+                git branch: 'main', url: 'https://github.com/timurbabs/spring-petclinic.git'
             }
         }
         stage("Maven Build") {
