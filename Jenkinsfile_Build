@@ -63,7 +63,7 @@ pipeline {
             steps {
                 script {
                     pom = readMavenPom file: "pom.xml";
-                    def data = 'FROM openjdk:11\nWORKDIR /\nCOPY ./target/'+pom.artifactId+'-'+pom.version+'.jar'+'/\nEXPOSE 8080\nCMD java -jar /target/*.jar'
+                    def data = 'FROM openjdk:11\nWORKDIR /\nCOPY ./target/'+pom.artifactId+'-'+pom.version+'.jar'+' /\nEXPOSE 8080\nCMD java -jar /target/*.jar'
                     writeFile(file: 'Dockerfile', text: data)
                 }
             }
