@@ -62,7 +62,7 @@ pipeline {
         stage("Create DockerFile") {
             steps {
                 script {
-                    def data = 'FROM openjdk:11\nWORKDIR /\nCOPY ./target /\nEXPOSE 8080\nCMD java -jar \$(find /target/ -name \"*.jar\" -print -quit 2>/dev/null)'
+                    def data = 'FROM openjdk:11\nWORKDIR /\nCOPY ./target /\nEXPOSE 8080\nCMD java -jar $(find /target/ -name "*.jar" -print -quit 2>/dev/null)'
                     writeFile(file: 'Dockerfile', text: data)
                 }
             }
