@@ -1,5 +1,5 @@
 pipeline {
-    agent label {
+    agent {
         slave-1
     }
     environment {
