@@ -62,7 +62,8 @@ pipeline {
         stage("Create DockerFile") {
             steps {
                 script {
-                    def data = 'FROM openjdk:11\nWORKDIR /\nCOPY ./target /\nEXPOSE 8080\nCMD java -jar $(find /target/ -name "*.jar" -print -quit 2>/dev/null)'
+                    pom = readMavenPom file: "pom.xml";
+                    def data = 'FROM openjdk:11\nWORKDIR /\nCOPY ./target/'+pom.artifactId+'-'+pom.version+'.jar'+'/\nEXPOSE 8080\nCMD java -jar /target/*.jar'
                     writeFile(file: 'Dockerfile', text: data)
                 }
             }
