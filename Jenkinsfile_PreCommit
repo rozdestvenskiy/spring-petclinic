@@ -12,9 +12,9 @@ pipeline {
         stage("Maven Build") {
             steps {
                 script {
-                    sh "./mvnw validate"
-                    sh "./mvnw compile"
-                    sh "./mvnw est"
+                    sh "./mvnw clean validate"
+                    sh "./mvnw clean compile"
+                    sh "./mvnw clean test"
                 }
             }
         }
