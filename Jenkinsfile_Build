@@ -10,6 +10,9 @@ pipeline {
         DOCKER_IMAGE_NAME = "petclinic-docker"
         DOCKER_IMAGE = ""
     }
+    parameters {
+        string(defaultValue: "", description: 'Parameter for artifact varsion', name: 'VERSION')
+    }
     stages {
         stage("Clone code from GitHub") {
             steps {
@@ -79,11 +82,15 @@ pipeline {
         stage("Upload Docker Image to Nexus") {
             steps {
                 script {
-                    
                     docker.withRegistry( 'http://'+NEXUS_URL_CONTAINERS, NEXUS_CREDENTIAL_ID ) {
                         DOCKER_IMAGE.push('latest')
                     }
                 }
+            }
+        }
+        stage('Throw parameters to Deployment job'){
+            steps{
+                    build job: 'Deployment', wait: false, parameters: [string(name: 'VERSION', value: String.valueOf(VERSION))]
             }
         }
     }
