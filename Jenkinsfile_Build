@@ -5,9 +5,9 @@ pipeline {
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "3.143.224.230:8081"
+        NEXUS_URL = "3.129.16.11:8081"
         NEXUS_REPOSITORY = "petclinic-maven-hosted"
-        NEXUS_URL_CONTAINERS = "3.143.224.230:8085"
+        NEXUS_URL_CONTAINERS = "3.129.16.11:8085"
         NEXUS_CREDENTIAL_ID = "nexus"
         DOCKER_IMAGE_NAME = "petclinic-docker"
         DOCKER_IMAGE = ""
