@@ -1,24 +1,36 @@
 pipeline {
-    agent {
-        label "master"
+    agent {label 'slave-1'}
+    environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "52.15.68.255:8081"
+        NEXUS_REPOSITORY = "petclinic-maven-hosted"
+        NEXUS_URL_CONTAINERS = "52.15.68.255:8085"
+        NEXUS_CREDENTIAL_ID = "nexus"
+        DOCKER_IMAGE_NAME = "petclinic-docker"
+        DOCKER_IMAGE_VERSION = ""
+        DOCKER_IMAGE = ""
+        USER = "ec2-user"
+        COMPUTER_NAME = "ec2-18-117-12-143.us-east-2.compute.amazonaws.com"
     }
-    
     stages {
-        stage("Pull from Nexus") {
+        
+        stage("Pull latest") {
+            agent {label 'dev-prod'}
             steps {
-                withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'PASSWORD', usernameVariable: 'ADMIN')]) {
-                    script {
-                        sh('curl -L -X GET --compressed "https://192.168.43.201:8081/service/rest/v1/search/assets/download?sort=version&repository=maven-petclinic-snapshots&maven.groupId=org.springframework.samples&maven.artifactId=spring-petclinic&maven.baseVersion=2.4.5&maven.extension=jar" -H "accept: application/json" -o latest-spring-petclinic.jar')
-                    }
+                script {
+                        sh 'docker stop $(docker ps -a -q)'
                 }
             }
+            
         }
-    }
-    
-    post { 
-        always {
-            script {
-                sh "java -jar latest-spring-petclinic.jar"
+        
+        stage("Run") {
+            agent {label 'dev-prod'}
+            steps {
+                script {
+                        sh 'docker run --privileged=true --network=host -p 80:80 -d ${NEXUS_URL_CONTAINERS}/${DOCKER_IMAGE_NAME}:latest'
+                }
             }
         }
     }
